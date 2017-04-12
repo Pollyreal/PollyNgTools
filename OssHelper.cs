@@ -33,7 +33,7 @@ namespace Rapid.Admin.Controllers
         /// </summary>
         private String CallbackUrl { get; set; }
         /// <summary>
-        /// 默认上传目录pollyng/;传图回调页面http://demo.duokongkeji.com
+        /// 默认上传目录pollyng/;传图回调页面http://pollyreal.space
         /// </summary>
         public OssHelper()
         {
