@@ -1,0 +1,18 @@
+﻿<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="" Inherits="" Debug="False" Description="生成Model" %>
+<%@ Property Name="NameSpace" Type="System.String" Optional="True" Category="Context" Description="The namespace that the generated class will be a member of." %>
+<%@ Property Name="SourceCommonds" Category="StoredProcedures" Type="SchemaExplorer.CommandSchema"%>
+<%@ Map Name="CSharpAlias" Src="System-CSharpAlias" Description="System to C# Type Map" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Import Namespace="SchemaExplorer" %>
+
+public class <%= SourceCommonds.Name %>_result
+{
+  <% for(int i = 0; i<SourceCommonds.CommandResults[0].Columns.Count;i++){%> 
+  public <%=  CSharpAlias[SourceCommonds.CommandResults[0].Columns[i].SystemType.FullName]%> <%= SourceCommonds.CommandResults[0].Columns[i].Name %> {get;set;}
+  <%} %>
+}

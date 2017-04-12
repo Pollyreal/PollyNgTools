@@ -1,0 +1,22 @@
+﻿<%-- 
+Name:
+Author:
+Description:
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="" Inherits="" Debug="False" Description="生成Model" %>
+<%@ Property Name="NameSpace" Type="System.String" Optional="True" Category="Context" Description="The namespace that the generated class will be a member of." %>
+<%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="only.Context" Description="Table that the documentation should be based on." %>
+<%@ Property Name="SampleStringProperty" Type="System.String" Default="SomeValue" Optional="True" Category="Strings" Description="This is a sample string property." %>
+<%@ Property Name="SampleBooleanProperty" Type="System.Boolean" Default="True" Optional="False" Category="Booleans" Description="This is a sample boolean property." %>
+<%@ Map Name="CSharpAlias" Src="System-CSharpAlias" Description="System to C# Type Map" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Import Namespace="SchemaExplorer" %>
+namespace <%=NameSpace%>
+{
+    public class <%= SourceTable.FullName %> 
+    {
+      <% for(int i = 0; i<SourceTable.Columns.Count;i++){%> 
+      public <%=  CSharpAlias[SourceTable.Columns[i].SystemType.FullName]%> <%= SourceTable.Columns[i].Name %> {get;set;}
+      <%} %>
+    }
+}
