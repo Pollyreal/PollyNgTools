@@ -12,7 +12,7 @@ namespace Rapid.Admin.Controllers
     /// <summary>
     /// 阿里云对象存储工具
     /// </summary>
-    public class OssHelper
+    public partial class OssHelper
     {
         private DateTime BaseTime = new DateTime(1970, 1, 1);//Unix起始时间
         private String Endpoint { get; set; }
@@ -82,7 +82,14 @@ namespace Rapid.Admin.Controllers
             ossmodel.callback = Convert.ToBase64String(Encoding.UTF8.GetBytes(JSON.Serialize(callbackparam).ToCharArray()));
             return ossmodel;
         }
-
+        /// <summary>
+        /// 获得当前存储空间地址
+        /// </summary>
+        /// <returns></returns>
+        public String GetHostPath()
+        {
+            return string.Format("http://{0}.{1}", this.Bucket, this.Endpoint);
+        }
         /// <summary>
         /// HmacSHA1签名
         /// </summary>
@@ -99,7 +106,19 @@ namespace Rapid.Admin.Controllers
                     algorithm.ComputeHash(Encoding.UTF8.GetBytes(data.ToCharArray())));
             }
         }
-
+        public void UploadObject(String objectKey, Stream stream)
+        {
+            UploadMediaPartial(objectKey, stream);
+        }
+        partial void UploadMediaPartial(String objectKey, Stream stream); 
+    }
+    partial class OssHelper
+    {
+        partial void UploadMediaPartial(String objectKey, Stream stream)
+        {
+            OssClient client = new OssClient(Endpoint, AccessId, AccessKey);
+            var result = client.PutObject(Bucket, objectKey, stream);
+        }
     }
     /// <summary>
     /// 回调地址参数
