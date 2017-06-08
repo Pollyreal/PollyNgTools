@@ -48,21 +48,31 @@ export class OssUploadService {
       );
   }
 
+  private getSuffix(filename: string): string {
+    let suffix = '';
+    const pos = filename.lastIndexOf('.');
+    if (pos !== -1) {
+      suffix = filename.substring(pos);
+    }
+    return suffix;
+  }
+
   // 上传文件
   fileUpload(file: any): Promise<string> {
     return this.getSignature().then(res => {
       const form = new FormData();
       // 随机文件名
-      this.params.key += file.name;
+      const now = new Date();
+      this.params.key += now.getTime() + this.getSuffix(file.name); // file.name;
       for (const k in this.params) {
         form.append(k, this.params[k]);
       }
       form.append(`file`, file);
-      this.http.post(this.ossSign.host, form).subscribe(rs => {
+      return this.http.post(this.ossSign.host, form).map(rs => {
+      }).toPromise().then(rrs => {
+        // 返回图片地址
+        return `${this.ossSign.host}/${this.params.key}`;
       });
-    }).then(res => {
-      // 返回图片地址
-      return `${this.ossSign.host}/${this.params.key}`;
     });
   }
 }
