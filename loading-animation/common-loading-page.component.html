@@ -1,0 +1,8 @@
+<div class="loading-overlay load-overlay-back" [@circleBackSatus]="circleBackSatus">
+  <div class="circle" [@circleLoaderStatus]="circleLoaderStatus"
+   (@circleLoaderStatus.done)="onAnimationEndCircleEvent($event)">
+  </div>
+</div>
+<div class="loading-overlay loading-overlay-purple">
+  <div class="loading-success" [@purpleLoaderStatus]="purpleLoaderStatus" (@purpleLoaderStatus.done)="onAnimationEndEvent($event)"></div>
+</div>
