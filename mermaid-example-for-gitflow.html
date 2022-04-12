@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <div class="mermaid">
+    %%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true,
+    'showCommitLabel':false,'mainBranchName': 'master'}} }%%
+    gitGraph
+    commit id: "Merged PR 11011"
+    commit
+    branch featureA
+    checkout featureA
+    commit
+    commit
+    checkout master
+    commit
+    commit
+    branch bugfixA
+    checkout bugfixA
+    commit
+    commit
+    checkout master
+    commit
+    branch uat-5.4
+    checkout uat-5.4
+    merge bugfixA
+    merge featureA
+    checkout master
+    merge featureA
+    merge bugfixA
+    commit tag: "v2022.04.08.01"
+    commit
+  </div>
+
+
+  <div class="mermaid">
+    %%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true,
+    'showCommitLabel':false,'mainBranchName': 'master'}} }%%
+    gitGraph
+    commit id: "Merged PR 11011"
+    commit
+    branch featureA
+    checkout featureA
+    commit
+    commit
+    branch featureB-depend-on-featureA
+    checkout featureB-depend-on-featureA
+    commit
+    commit
+    checkout featureA
+    merge featureB-depend-on-featureA
+    commit
+    checkout master
+    commit
+    branch uat-5.4
+    checkout uat-5.4
+    merge featureA
+    checkout master
+    merge featureA
+    commit tag: "v2022.04.08.01"
+    commit
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({ startOnLoad: true });
+  </script>
+</body>
+
+</html>
