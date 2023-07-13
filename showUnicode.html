@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .character {
+            flex-basis: 50px;
+            flex-grow: 1;
+            text-align: center;
+            margin: 5px;
+            padding: 10px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="characterContainer"></div>
+
+    <script>
+        // More unicode see http://www.unicode.org/charts/
+        function getHexRange(start, end) {
+            const startNum = parseInt(start, 16);
+            const endNum = parseInt(end, 16);
+            const hexRange = [];
+
+            for (let i = startNum; i <= endNum; i++) {
+                hexRange.push(i.toString(16).toUpperCase());
+            }
+
+            return hexRange;
+        }
+
+        // Set hex range
+        const startHex = "1F900";
+        const endHex = "1F9FF";
+
+        // Characters and Unicode values
+        const characters = getHexRange(startHex, endHex);
+
+        // Function to generate character elements
+        function generateCharacterElements() {
+            const container = document.getElementById('characterContainer');
+
+            characters.forEach((unicode) => {
+                const element = document.createElement('div');
+                const character = String.fromCodePoint(parseInt(unicode, 16));
+                element.innerHTML = `${character}<br>${unicode}`;
+                element.classList.add('character');
+                container.appendChild(element);
+            });
+        }
+
+        // Call the function to generate character elements
+        generateCharacterElements();
+    </script>
+</body>
+
+</html>
